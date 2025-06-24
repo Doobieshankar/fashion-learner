@@ -5,8 +5,13 @@
   "scripts": {
     "start": "node backend/server.js",
     "backend": "nodemon backend/server.js",
-    "frontend": "cd frontend && npm run dev",
-    "dev": "concurrently \"set NODE_ENV=development&&npm run backend\" \"npm run frontend\""
+    "frontend": "npm --prefix frontend run dev",
+    "dev": "concurrently -n BACKEND,FRONTEND -c green,blue \"npm run backend\" \"npm run frontend\"",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:start": "npm --prefix frontend run start",
+    "build": "npm run frontend:build",
+    "prod": "concurrently -n BACKEND,FRONTEND -c green,blue \"npm run start\" \"npm run frontend:start\"",
+    "start:prod": "npm run build && npm run prod"
   },
   "keywords": [],
   "author": "",
